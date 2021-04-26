@@ -5,15 +5,7 @@
 #include "esp_wifi.h"
 #include "nvs_flash.h"
 
-
-
-
-
-
 void scann(){
-  
-  
-
 // configure and run the scan process in blocking mode
   wifi_scan_config_t scan_config = {
     .ssid = 0,
@@ -21,15 +13,14 @@ void scann(){
     .channel = 0,
         .show_hidden = true
     };
-  
-  
   printf("Start scanning...");
   ESP_ERROR_CHECK(esp_wifi_scan_start(&scan_config, true));
   printf(" completed!\n");
  
   // get the list of APs found in the last scan
-  uint8_t ap_num;
+  uint16_t ap_num;
   wifi_ap_record_t ap_records[20];
+     ESP_ERROR_CHECK(esp_wifi_scan_get_ap_num(&ap_num));
   ESP_ERROR_CHECK(esp_wifi_scan_get_ap_records(&ap_num, ap_records));
   
   // print the list 
